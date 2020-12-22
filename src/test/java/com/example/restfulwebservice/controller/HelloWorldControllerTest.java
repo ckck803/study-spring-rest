@@ -38,4 +38,14 @@ class HelloWorldControllerTest {
                 .andExpect(jsonPath("message").value("Hello World"))
                 .andDo(print());
     }
+
+    @Test
+    public void Hello_World_Bean_Name_test() throws Exception{
+        ResultActions actions = mockMvc.perform(get("/hello-world-bean/path-variable/dongwoo"));
+
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("message").value("Hello World, dongwoo"))
+                .andDo(print());
+    }
 }
