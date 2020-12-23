@@ -1,7 +1,6 @@
 package com.example.restfulwebservice.controller;
 
 import com.example.restfulwebservice.domain.User;
-import com.example.restfulwebservice.exception.UserNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,13 +85,22 @@ class UserControllerTest {
                 .andDo(print());
     }
 
+//    @Test
+//    public void 상태코드_500을_확인한다() throws UserNotFoundException, Exception {
+//        ResultActions resultActions = mockMvc.perform(get("/users/100"));
+//
+//
+//        resultActions
+//                .andExpect(status().isInternalServerError())
+//                .andDo(print());
+//    }
+
     @Test
-    public void 상태코드_500을_확인한다() throws UserNotFoundException, Exception {
+    public void 상태코드_404를_확인한다() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/users/100"));
 
-
         resultActions
-                .andExpect(status().isInternalServerError())
+                .andExpect(status().isNotFound())
                 .andDo(print());
     }
 }
