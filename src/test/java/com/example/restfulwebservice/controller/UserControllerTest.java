@@ -67,7 +67,7 @@ class UserControllerTest {
 //    }
 
     @Test
-    public void 상태코드_201을_확인한다() throws Exception {
+    public void 유저를_등록하고_상태코드_201을_확인한다() throws Exception {
         User user = new User();
         String name = "dongwoo";
         Date date = new Date();
@@ -96,7 +96,7 @@ class UserControllerTest {
 //    }
 
     @Test
-    public void 상태코드_404를_확인한다() throws Exception{
+    public void 상태코드_404를_확인한다() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/users/100"));
 
         resultActions
@@ -105,7 +105,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void 정확한_유저_삭제기능을_확인한다() throws Exception{
+    public void 정확한_유저_삭제기능을_확인한다() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/users/1"));
 
         resultActions
@@ -116,11 +116,29 @@ class UserControllerTest {
     }
 
     @Test
-    public void 유저_삭제_예외처리를_확인한다() throws Exception{
+    public void 유저_삭제_예외처리를_확인한다() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/users/100"));
 
         resultActions
                 .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    public void 유저_생성에_대한_예외를_확인한다() throws Exception {
+        User user = new User();
+        String name = "T";
+        Date joinDate = new Date();
+        user.setName(name);
+        user.setJoinDate(joinDate);
+        String content = objectMapper.writeValueAsString(user);
+
+        ResultActions resultActions = mockMvc.perform(post("/users")
+                .content(content)
+                .contentType(MediaType.APPLICATION_JSON));
+
+        resultActions
+                .andExpect(status().isBadRequest())
                 .andDo(print());
     }
 }
