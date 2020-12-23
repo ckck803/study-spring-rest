@@ -46,8 +46,27 @@ class UserControllerTest {
                 .andDo(print());
     }
 
+//    @Test
+//    public void 유저를_등록한다() throws Exception {
+//        User user = new User();
+//        String name = "dongwoo";
+//        Date date = new Date();
+//
+//        user.setName(name);
+//        user.setJoinDate(date);
+//        String content = objectMapper.writeValueAsString(user);
+//
+//        ResultActions resultActions = mockMvc.perform(post("/users")
+//                .content(content)
+//                .contentType(MediaType.APPLICATION_JSON));
+//
+//        resultActions
+//                .andExpect(status().isOk())
+//                .andDo(print());
+//    }
+
     @Test
-    public void 유저를_등록한다() throws Exception {
+    public void 상태코드_201을_확인한다() throws Exception {
         User user = new User();
         String name = "dongwoo";
         Date date = new Date();
@@ -61,7 +80,7 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         resultActions
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andDo(print());
     }
 }
