@@ -51,4 +51,14 @@ class UserDaoServiceTest {
         assertThat(savedUser.getName()).isEqualTo(name);
         assertThat(savedUser.getJoinDate()).isEqualTo(date);
     }
+
+    @Test
+    public void User_삭제_기능_테스트(){
+        UserDaoService userDaoService = new UserDaoService();
+
+        User deletedUser = userDaoService.deleteById(1);
+
+        assertThat(deletedUser.getId()).isEqualTo(1);
+        assertThat(deletedUser.getName()).isEqualTo("Kenneth");
+    }
 }

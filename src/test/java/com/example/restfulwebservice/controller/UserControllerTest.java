@@ -103,4 +103,24 @@ class UserControllerTest {
                 .andExpect(status().isNotFound())
                 .andDo(print());
     }
+
+    @Test
+    public void 정확한_유저_삭제기능을_확인한다() throws Exception{
+        ResultActions resultActions = mockMvc.perform(get("/users/1"));
+
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("name").value("Kenneth"))
+                .andDo(print());
+    }
+
+    @Test
+    public void 유저_삭제_예외처리를_확인한다() throws Exception{
+        ResultActions resultActions = mockMvc.perform(get("/users/100"));
+
+        resultActions
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
 }
