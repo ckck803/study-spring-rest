@@ -1,6 +1,7 @@
 package com.example.restfulwebservice.controller;
 
 import com.example.restfulwebservice.domain.User;
+import com.example.restfulwebservice.exception.UserNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ import java.util.Date;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -81,6 +83,16 @@ class UserControllerTest {
 
         resultActions
                 .andExpect(status().isCreated())
+                .andDo(print());
+    }
+
+    @Test
+    public void 상태코드_500을_확인한다() throws UserNotFoundException, Exception {
+        ResultActions resultActions = mockMvc.perform(get("/users/100"));
+
+
+        resultActions
+                .andExpect(status().isInternalServerError())
                 .andDo(print());
     }
 }
