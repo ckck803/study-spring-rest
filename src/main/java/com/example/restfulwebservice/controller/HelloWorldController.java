@@ -13,6 +13,7 @@ public class HelloWorldController {
         return "Hello World";
     }
 
+    // SpringBoot에서는 HelloWorldBean이라는 객체를 JSON타입의 형태로 반환해준다.
     @GetMapping("/hello-world-bean/")
     public HelloWorldBean helloWorldBean(){
         return new HelloWorldBean("Hello World");

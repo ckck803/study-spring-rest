@@ -23,6 +23,7 @@ public class UserController {
         return service.findAll();
     }
 
+    // path variable을 이용한 요청을 처리
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id){
         User user = service.findOne(id);
